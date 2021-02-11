@@ -1,10 +1,11 @@
 // utils
-import makeValidation from '@withvoid/make-validation';
 // models
+import makeValidation from '@withvoid/make-validation';
 import UserModel, { USER_TYPES } from '../models/User.js';
 
 
 export default {
+  //get all users
     onGetAllUsers: async (req, res) => { 
       try {
         const users = await UserModel.getUsers();
@@ -13,6 +14,7 @@ export default {
         return res.status(500).json({ success: false, error: error })
       }
     },
+     //Get Single user
     onGetUserById: async (req, res) => { 
       try {
         const user = await UserModel.getUserById(req.params.id);
@@ -21,7 +23,8 @@ export default {
         return res.status(500).json({ success: false, error: error })
       }
     },
-    
+
+   //create user
     onCreateUser: async (req, res) => { 
       try {
         const validation = makeValidation(types => ({
@@ -41,6 +44,7 @@ export default {
         return res.status(500).json({ success: false, error: error })
       }
     },
+    //
     onDeleteUserById: async (req, res) => { 
       try {
         const user = await UserModel.deleteByUserById(req.params.id);
