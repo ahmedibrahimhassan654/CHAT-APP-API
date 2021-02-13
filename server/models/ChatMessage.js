@@ -135,4 +135,25 @@ chatMessageSchema.statics.getConversationByRoomId = async function (chatRoomId, 
     throw error;
   }
 }
+
+chatMessageSchema.statics.markMessageRead = async function (chatRoomId, currentUserOnlineId) {
+  try {
+    return this.updateMany(
+      {
+        chatRoomId,
+        'readByRecipients.readByUserId': { $ne: currentUserOnlineId }
+      },
+      {
+        $addToSet: {
+          readByRecipients: { readByUserId: currentUserOnlineId }
+        }
+      },
+      {
+        multi: true
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
+}
 export default mongoose.model("ChatMessage", chatMessageSchema);
