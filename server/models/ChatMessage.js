@@ -148,6 +148,8 @@ chatMessageSchema.statics.markMessageRead = async function (chatRoomId, currentU
           readByRecipients: { readByUserId: currentUserOnlineId }
         }
       },
+
+      
       {
         multi: true
       }
