@@ -53,6 +53,32 @@ export default {
       }
      },
     getRecentConversation: async (req, res) => { },
-    getConversationByRoomId: async (req, res) => { },
+    getConversationByRoomId: async (req, res) => {
+
+      try {
+        const { roomId } = req.params;
+        const room = await ChatRoomModel.getChatRoomByRoomId(roomId)
+        if (!room) {
+          return res.status(400).json({
+            success: false,
+            message: 'No room exists for this id',
+          })
+        }
+        const users = await UserModel.getUserByIds(room.userIds);
+        const options = {
+          page: parseInt(req.query.page) || 0,
+          limit: parseInt(req.query.limit) || 10,
+        };
+        const conversation = await ChatMessageModel.getConversationByRoomId(roomId, options);
+        return res.status(200).json({
+          success: true,
+          conversation,
+          users,
+        });
+      } catch (error) {
+        return res.status(500).json({ success: false, error });
+      }
+
+     },
     markConversationReadByRoomId: async (req, res) => { },
   }
