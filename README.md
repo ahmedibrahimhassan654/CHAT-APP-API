@@ -24,7 +24,9 @@ When a user mutes a chat room
 Understanding chatroom & chatmessage database model
 API
 -Initiate a chat between users
+
 -Create a message in chat room
+
 -See conversation for a chat room by it's id
 -Mark an entire conversation as read (seen feature similar to whatsapp)
 -Get recent conversation from all chats (similar to facebook messenger page)
